@@ -10,7 +10,8 @@ import org.junit.runner.RunWith;
         glue = {"CucumberTest/stepdefs"},
        // dryRun = true,
         plugin = "pretty",
-        monochrome = false
+        monochrome = false,
+        tags = "@LoginLogout"
 )
 
 public class TestRunner {
