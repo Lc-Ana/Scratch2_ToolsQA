@@ -25,6 +25,12 @@
             <artifactId>selenium-java</artifactId>
             <version>4.13.0</version>
         </dependency>
+        <dependency>
+            <groupId>io.cucumber</groupId>
+            <artifactId>cucumber-junit</artifactId>
+            <version>7.14.0</version>
+            <scope>test</scope>
+        </dependency>
 
 
     </dependencies>
