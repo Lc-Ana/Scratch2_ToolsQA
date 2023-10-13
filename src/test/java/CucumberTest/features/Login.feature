@@ -3,7 +3,7 @@ Feature: Login logout features
   Scenario: User is able to login in the app with valid credentials
     Given User launched the app
     And user is on default page of the app
-    When user introduces the valid credentials
+    When user introduces standard_user and secret_sauce
     And clicks on Login button
     Then user lands on homepage
 

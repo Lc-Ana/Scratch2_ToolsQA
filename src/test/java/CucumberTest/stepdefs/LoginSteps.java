@@ -27,11 +27,11 @@ public class LoginSteps {
 
     }
 
-    @When("user introduces the valid credentials")
-    public void user_introduces_the_valid_credentials() {
+    @When("user introduces {} and {}")
+    public void user_introduces_the_valid_credentials(String username, String password) {
         // Write code here that turns the phrase above into concrete actions
-        driver.findElement(By.id("user-name")).sendKeys(new CharSequence[]{"standard_user"});
-        driver.findElement(By.id("password")).sendKeys(new CharSequence[]{"secret_sauce"});
+        driver.findElement(By.id("user-name")).sendKeys(username);
+        driver.findElement(By.id("password")).sendKeys(password);
     }
 
     @When("clicks on Login button")
