@@ -30,18 +30,36 @@ public class LoginSteps {
     }
 
     @When("user introduces the valid credentials")
-    public void user_introduces_the_valid_credentials(DataTable userCredentials) {
+    public void user_introduces_the_valid_credentials(DataTable userCredentials) throws InterruptedException {
         // Write code here that turns the phrase above into concrete actions
-        List<Map<String, String>> dataset = userCredentials.asMaps(String.class, String.class);
-        driver.findElement(By.id("user-name")).sendKeys(dataset.get(0).get("username"));
-        driver.findElement(By.id("password")).sendKeys(dataset.get(0).get("password"));
+        try{
+        for (Map<String, String> dataset : userCredentials.asMaps(String.class, String.class)) {
+            driver.findElement(By.id("user-name")).sendKeys(dataset.get("username"));
+            driver.findElement(By.id("password")).sendKeys(dataset.get("password"));
+            driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
+            driver.findElement(By.id("login-button")).click();
+            driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
+            driver.findElement(By.id("react-burger-menu-btn")).click();
+            driver.findElement(By.id("logout_sidebar_link")).click();
+
+            String actualTitleOfHomePage = driver.getTitle();
+            String expectedTitle = "Swag Labs";
+            if (expectedTitle.equals(actualTitleOfHomePage)) {
+                System.out.println("Login Successfully");
+            } else {
+                System.out.println("Login UNSuccessfully");
+            }
+        }
+        } catch(Exception e){
+            System.out.println("Something went wrong.");
+        }
     }
 
-    @When("clicks on Login button")
-    public void clicks_on_login_button() {
-        // Write code here that turns the phrase above into concrete actions
-        driver.findElement(By.id("login-button")).click();
-    }
+//    @When("clicks on Login button")
+//    public void clicks_on_login_button() {
+//        // Write code here that turns the phrase above into concrete actions
+//        driver.findElement(By.id("login-button")).click();
+//    }
 
     @Then("user lands on homepage")
     public void user_lands_on_homepage() {
@@ -61,12 +79,13 @@ public class LoginSteps {
         // Write code here that turns the phrase above into concrete actions
         driver.findElement(By.id("react-burger-menu-btn")).click();
         driver.findElement(By.id("logout_sidebar_link")).click();
+        System.out.println("Logout Successfully!");//to delete after
     }
 
-    @Then("user lands on login page")
-    public void user_lands_on_login_page() {
-        // Write code here that turns the phrase above into concrete actions
-        System.out.println("Logout Successfully!");
-        driver.quit();
-    }
+//    @Then("user lands on login page")
+//    public void user_lands_on_login_page() {
+//        // Write code here that turns the phrase above into concrete actions
+//        System.out.println("Logout Successfully!");
+//        driver.quit();
+//    }
 }

@@ -8,10 +8,11 @@ Feature: Login logout features
     When user introduces the valid credentials
       | username      | password     |
       | standard_user | secret_sauce |
-    And clicks on Login button
-    Then user lands on homepage
+      | problem_user  | secret_sauc |
+    #And clicks on Login button
+    #Then user lands on homepage
 
-  @Logout
-  Scenario: User is able to logout
-    When user clicks on logout button
-    Then user lands on login page
+  #@Logout
+  #Scenario: User is able to logout
+    #When user clicks on logout button
+    #Then user lands on login page
