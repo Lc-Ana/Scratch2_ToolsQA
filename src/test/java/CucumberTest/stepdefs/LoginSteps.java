@@ -1,13 +1,14 @@
 package CucumberTest.stepdefs;
 
+import io.cucumber.datatable.DataTable;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
-import org.asynchttpclient.util.Assertions;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
@@ -27,11 +28,12 @@ public class LoginSteps {
 
     }
 
-    @When("user introduces {} and {}")
-    public void user_introduces_the_valid_credentials(String username, String password) {
+    @When("user introduces the valid credentials")
+    public void user_introduces_the_valid_credentials(DataTable userCredentials) {
         // Write code here that turns the phrase above into concrete actions
-        driver.findElement(By.id("user-name")).sendKeys(username);
-        driver.findElement(By.id("password")).sendKeys(password);
+        List<List<String>> dataset = userCredentials.asLists();
+        driver.findElement(By.id("user-name")).sendKeys(dataset.get(0).get(0));
+        driver.findElement(By.id("password")).sendKeys(dataset.get(0).get(1));
     }
 
     @When("clicks on Login button")
