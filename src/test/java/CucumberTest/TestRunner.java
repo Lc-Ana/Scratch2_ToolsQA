@@ -8,9 +8,10 @@ import org.junit.runner.RunWith;
 @CucumberOptions(
         features = "src/test/java/CucumberTest/features",
         glue = {"CucumberTest/stepdefs"},
-        dryRun = true,
+       // dryRun = true,
         plugin = "pretty",
-        monochrome = false
+        monochrome = false,
+        tags = "@LoginLogout"
 )
 
 public class TestRunner {
