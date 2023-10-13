@@ -6,11 +6,12 @@ Feature: Login logout features
     Given User launched the app
     And user is on default page of the app
     When user introduces the valid credentials
+      | username      | password     |
       | standard_user | secret_sauce |
     And clicks on Login button
     Then user lands on homepage
 
-    @Logout
+  @Logout
   Scenario: User is able to logout
     When user clicks on logout button
     Then user lands on login page

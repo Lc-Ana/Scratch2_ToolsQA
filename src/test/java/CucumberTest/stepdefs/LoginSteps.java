@@ -9,6 +9,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
@@ -31,9 +32,9 @@ public class LoginSteps {
     @When("user introduces the valid credentials")
     public void user_introduces_the_valid_credentials(DataTable userCredentials) {
         // Write code here that turns the phrase above into concrete actions
-        List<List<String>> dataset = userCredentials.asLists();
-        driver.findElement(By.id("user-name")).sendKeys(dataset.get(0).get(0));
-        driver.findElement(By.id("password")).sendKeys(dataset.get(0).get(1));
+        List<Map<String, String>> dataset = userCredentials.asMaps(String.class, String.class);
+        driver.findElement(By.id("user-name")).sendKeys(dataset.get(0).get("username"));
+        driver.findElement(By.id("password")).sendKeys(dataset.get(0).get("password"));
     }
 
     @When("clicks on Login button")
