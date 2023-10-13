@@ -1,6 +1,6 @@
 package CucumberTest.stepdefs;
 
-import io.cucumber.datatable.DataTable;
+import CucumberTest.helpers.Credentials;
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;
 import io.cucumber.java.en.When;
@@ -9,16 +9,14 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 
 import java.util.List;
-import java.util.Map;
-import java.util.concurrent.TimeUnit;
 
 public class LoginSteps {
     private static WebDriver driver = null;
+
     @Given("User launched the app")
     public void user_launched_the_app() {
         // Write code here that turns the phrase above into concrete actions
         driver = new ChromeDriver();
-        driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
         driver.manage().window().maximize();
     }
 
@@ -30,28 +28,12 @@ public class LoginSteps {
     }
 
     @When("user introduces the valid credentials")
-    public void user_introduces_the_valid_credentials(DataTable userCredentials) throws InterruptedException {
+    public void user_introduces_the_valid_credentials(List<Credentials> userCredentials) {
         // Write code here that turns the phrase above into concrete actions
-        try{
-        for (Map<String, String> dataset : userCredentials.asMaps(String.class, String.class)) {
-            driver.findElement(By.id("user-name")).sendKeys(dataset.get("username"));
-            driver.findElement(By.id("password")).sendKeys(dataset.get("password"));
-            driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
+        for (Credentials credentials : userCredentials) {
+            driver.findElement(By.id("user-name")).sendKeys(credentials.getUsername());
+            driver.findElement(By.id("password")).sendKeys(credentials.getPassword());
             driver.findElement(By.id("login-button")).click();
-            driver.manage().timeouts().implicitlyWait(10L, TimeUnit.SECONDS);
-            driver.findElement(By.id("react-burger-menu-btn")).click();
-            driver.findElement(By.id("logout_sidebar_link")).click();
-
-            String actualTitleOfHomePage = driver.getTitle();
-            String expectedTitle = "Swag Labs";
-            if (expectedTitle.equals(actualTitleOfHomePage)) {
-                System.out.println("Login Successfully");
-            } else {
-                System.out.println("Login UNSuccessfully");
-            }
-        }
-        } catch(Exception e){
-            System.out.println("Something went wrong.");
         }
     }
 
@@ -66,10 +48,9 @@ public class LoginSteps {
         // Write code here that turns the phrase above into concrete actions
         String actualTitleOfHomePage = driver.getTitle();
         String expectedTitle = "Swag Labs";
-        if (expectedTitle.equals(actualTitleOfHomePage)){
+        if (expectedTitle.equals(actualTitleOfHomePage)) {
             System.out.println("Login Successfully");
-        }
-        else{
+        } else {
             System.out.println("Login UNSuccessfully");
         }
     }
